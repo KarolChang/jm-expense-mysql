@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const routes = require('./routes')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -8,6 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(routes)
+app.use(cors())
 
 // route
 app.get('/', (req, res) => {
