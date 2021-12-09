@@ -8,8 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(routes)
 app.use(cors())
+app.use(routes)
 
 // route
 app.get('/', (req, res) => {
