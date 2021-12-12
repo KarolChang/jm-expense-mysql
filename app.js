@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const history = require('connect-history-api-fallback')
 const routes = require('./routes')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -10,6 +11,7 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
+app.use(history())
 app.use(routes)
 
 // route
