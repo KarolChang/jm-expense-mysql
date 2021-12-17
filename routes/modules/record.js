@@ -19,7 +19,8 @@ router.post('/create', async (req, res, next) => {
 // read
 router.get('/all', async (req, res, next) => {
   try {
-    const records = await Record.findAll({ where: { deletedAt: null } })
+    const records = await Record.findAll({ where: { deletedAt: null }, order: [['date', 'DESC']] })
+    // const records = await Record.findAll({ where: { deletedAt: null } })
     return res.json(records)
   } catch (error) {
     return next(error)
