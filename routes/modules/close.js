@@ -3,6 +3,7 @@ const router = express.Router()
 
 const db = require('../../models')
 const Record = db.Record
+const Log = db.Log
 
 // close
 router.put('/', async (req, res, next) => {
@@ -22,6 +23,14 @@ router.put('/', async (req, res, next) => {
         recordsClosedNow.push(Number(recordId))
         await record.update({ isClosed: true })
       }
+    }
+    if (recordsClosedNow.length) {
+      await Log.create({
+        recorder: '建喵',
+        action: '結算',
+        closeAmount: req.body.totalAmount,
+        RecordIds: req.body.records
+      })
     }
     return res.json({ message: 'close success', recordsClosedNow, recordsNotFound, recordsClosedBefore })
   } catch (error) {

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Record.hasMany(models.Log)
     }
   }
   Record.init(
