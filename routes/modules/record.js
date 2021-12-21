@@ -61,7 +61,7 @@ router.put('/edit/:id', async (req, res, next) => {
     const updatedRecord = await record.update(req.body)
     await Log.create({
       ...req.body,
-      recorder: '豬涵',
+      recorder: req.body.editor,
       action: '編輯',
       ...oldRecord,
       RecordId: req.params.id

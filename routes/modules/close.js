@@ -26,7 +26,7 @@ router.put('/', async (req, res, next) => {
     }
     if (recordsClosedNow.length) {
       await Log.create({
-        recorder: '建喵',
+        recorder: req.body.recorder,
         action: '結算',
         closeAmount: req.body.totalAmount,
         RecordIds: req.body.records
