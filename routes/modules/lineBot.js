@@ -18,4 +18,17 @@ router.post('/push', async (req, res, next) => {
   }
 })
 
+router.post('/push/new', async (req, res, next) => {
+  try {
+    const lineBotURL = 'https://linebot20220114.herokuapp.com'
+    const apiHelperLineBot = axios.create({
+      baseURL: lineBotURL
+    })
+    await apiHelperLineBot.post('/push', req.body)
+    return res.json({ message: 'line message push success', input: req.body })
+  } catch (error) {
+    return next(error)
+  }
+})
+
 module.exports = router
