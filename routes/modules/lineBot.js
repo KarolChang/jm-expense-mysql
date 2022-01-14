@@ -20,10 +20,11 @@ const axios = require('axios')
 
 router.post('/push', async (req, res, next) => {
   try {
-    const lineBotURL = 'https://linebot20220114.herokuapp.com'
+    const lineBotURL = 'http://linebot20220114.herokuapp.com'
     const apiHelperLineBot = axios.create({
       baseURL: lineBotURL
     })
+    console.log('req.body', req.body)
     await apiHelperLineBot.post('/push', req.body)
     return res.json({ message: 'line message push success', input: req.body })
   } catch (error) {
