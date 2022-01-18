@@ -15,6 +15,13 @@ module.exports = {
       icon: {
         type: Sequelize.STRING
       },
+      photoUrl: {
+        type: Sequelize.STRING
+      },
+      deletedAt: {
+        type: Sequelize.DATE,
+        defaultValue: null
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
