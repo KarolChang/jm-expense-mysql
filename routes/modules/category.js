@@ -52,15 +52,15 @@ router.put('/edit/:id', async (req, res, next) => {
   }
 })
 
-// hard delete
+// soft delete
 router.delete('/delete/:id', async (req, res, next) => {
   try {
     const category = await Category.findByPk(req.params.id)
     if (!category) {
-      return res.json({ message: 'expense is not existed' })
+      return res.json({ message: 'category is not existed' })
     }
-    const deletedCategory = await category.destroy()
-    return res.json({ message: 'hard delete success', deletedCategory })
+    const deletedCategory = await category.update({ deletedAt: new Date() })
+    return res.json({ message: 'soft delete success', deletedCategory })
   } catch (error) {
     return next(error)
   }
