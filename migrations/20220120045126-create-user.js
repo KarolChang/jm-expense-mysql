@@ -12,11 +12,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-      name: {
+      displayName: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      photoUrl: {
+      photoURL: {
         type: Sequelize.STRING
       },
       firebaseUid: {

@@ -22,8 +22,8 @@ router.post('/register', async (req, res, next) => {
     // 資料庫建立資料
     const user = await User.create({
       email,
-      name: displayName,
-      photoUrl,
+      displayName,
+      photoURL,
       firebaseUid: firebaseUser.uid,
       active: true
     })
