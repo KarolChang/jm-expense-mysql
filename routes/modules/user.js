@@ -19,15 +19,25 @@ router.post('/register', async (req, res, next) => {
       // disabled: false,
     })
     console.log('firebaseUser', firebaseUser)
+    return res.json({ message: 'firebase email register success', firebaseUser })
+  } catch (error) {
+    return next(error)
+  }
+})
+
+// 資料庫建立資料
+router.post('/create', async (req, res, next) => {
+  try {
+    const { email, displayName, photoURL, firebaseUid } = req.body
     // 資料庫建立資料
     const user = await User.create({
       email,
       displayName,
       photoURL,
-      firebaseUid: firebaseUser.uid,
+      firebaseUid,
       active: true
     })
-    return res.json({ message: 'register success', user })
+    return res.json({ message: 'create user success', user })
   } catch (error) {
     return next(error)
   }
