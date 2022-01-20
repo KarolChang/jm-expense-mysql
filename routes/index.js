@@ -7,6 +7,7 @@ const log = require('./modules/log')
 const lineBot = require('./modules/lineBot')
 const expense = require('./modules/expense')
 const category = require('./modules/category')
+const user = require('./modules/user')
 
 router.use('/record', record)
 router.use('/close', close)
@@ -14,5 +15,6 @@ router.use('/log', log)
 router.use('/lineBot', lineBot)
 router.use('/expense', expense)
 router.use('/category', category)
+router.use('/user', user)
 
 module.exports = router
