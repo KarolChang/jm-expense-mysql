@@ -43,4 +43,16 @@ router.post('/create', async (req, res, next) => {
   }
 })
 
+// get all
+router.get('/all', async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      where: { active: true }
+    })
+    return res.json({ status: 'success', data: users })
+  } catch (error) {
+    return next(error)
+  }
+})
+
 module.exports = router
