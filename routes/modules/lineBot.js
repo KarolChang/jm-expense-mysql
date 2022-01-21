@@ -26,7 +26,7 @@ router.post('/push', async (req, res, next) => {
     })
     console.log('req.body', req.body)
     await apiHelperLineBot.post('/push', req.body)
-    return res.json({ message: 'line message push success', input: req.body })
+    return res.json({ status: 'success', data: req.body })
   } catch (error) {
     return next(error)
   }

@@ -32,7 +32,7 @@ router.put('/', async (req, res, next) => {
         RecordIds: req.body.records
       })
     }
-    return res.json({ message: 'close success', recordsClosedNow, recordsNotFound, recordsClosedBefore })
+    return res.json({ status: 'success', data: { recordsClosedNow, recordsNotFound, recordsClosedBefore } })
   } catch (error) {
     return next(error)
   }

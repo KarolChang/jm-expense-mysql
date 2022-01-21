@@ -19,7 +19,7 @@ router.post('/register', async (req, res, next) => {
       // disabled: false,
     })
     console.log('firebaseUser', firebaseUser)
-    return res.json({ message: 'firebase email register success', firebaseUser })
+    return res.json({ message: 'success', data: firebaseUser })
   } catch (error) {
     return next(error)
   }
@@ -37,7 +37,7 @@ router.post('/create', async (req, res, next) => {
       firebaseUid,
       active: true
     })
-    return res.json({ message: 'create user success', user })
+    return res.json({ message: 'success', data: user })
   } catch (error) {
     return next(error)
   }

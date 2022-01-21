@@ -12,10 +12,10 @@ router.post('/create', async (req, res, next) => {
     console.log('req.body', req.body)
     const category = await Category.findByPk(req.body.CategoryId)
     if (!category) {
-      return res.json({ message: 'category is not existed' })
+      return res.json({ status: 'error', message: 'category is not existed' })
     }
     const expense = await Expense.create(req.body)
-    return res.json({ message: 'create success', expense })
+    return res.json({ status: 'success', data: expense })
   } catch (error) {
     return next(error)
   }
@@ -28,7 +28,7 @@ router.get('/all', async (req, res, next) => {
       include: [{ model: Category, as: 'Category' }],
       order: [['date', 'DESC']]
     })
-    return res.json(expenses)
+    return res.json({ status: 'success', data: expenses })
   } catch (error) {
     return next(error)
   }
@@ -38,9 +38,9 @@ router.get('/:id', async (req, res, next) => {
   try {
     const expense = await Expense.findByPk(req.params.id, { include: [{ model: Category, as: 'Category' }] })
     if (!expense) {
-      return res.json({ message: 'expense is not existed' })
+      return res.json({ status: 'error', message: 'expense is not existed' })
     }
-    return res.json(expense)
+    return res.json({ status: 'success', data: expense })
   } catch (error) {
     return next(error)
   }
@@ -51,10 +51,10 @@ router.put('/edit/:id', async (req, res, next) => {
   try {
     const expense = await Expense.findByPk(req.params.id)
     if (!expense) {
-      return res.json({ message: 'expense is not existed' })
+      return res.json({ status: 'error', message: 'expense is not existed' })
     }
     const updatedExpense = await expense.update(req.body)
-    return res.json({ message: 'update success', updatedExpense })
+    return res.json({ status: 'success', data: updatedExpense })
   } catch (error) {
     return next(error)
   }
@@ -65,10 +65,10 @@ router.delete('/delete/:id', async (req, res, next) => {
   try {
     const expense = await Expense.findByPk(req.params.id)
     if (!expense) {
-      return res.json({ message: 'expense is not existed' })
+      return res.json({ status: 'error', message: 'expense is not existed' })
     }
     const deletedExpense = await expense.update({ deletedAt: new Date() })
-    return res.json({ message: 'soft delete success', deletedExpense })
+    return res.json({ status: 'success', data: deletedExpense })
   } catch (error) {
     return next(error)
   }
