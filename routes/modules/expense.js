@@ -4,6 +4,7 @@ const router = express.Router()
 const db = require('../../models')
 const Expense = db.Expense
 const Category = db.Category
+const User = db.User
 
 // create
 router.post('/create', async (req, res, next) => {
@@ -25,7 +26,11 @@ router.post('/create', async (req, res, next) => {
 router.get('/all', async (req, res, next) => {
   try {
     const expenses = await Expense.findAll({
-      include: [{ model: Category, as: 'Category' }],
+      include: [
+        { model: Category, as: 'Category' },
+        { model: User, as: 'User' }
+      ],
+      // include: [{ all: true }],
       order: [['date', 'DESC']]
     })
     return res.json({ status: 'success', data: expenses })

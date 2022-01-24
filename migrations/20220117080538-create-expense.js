@@ -27,6 +27,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      UserId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       deletedAt: {
         type: Sequelize.DATE,
         defaultValue: null

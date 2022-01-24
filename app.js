@@ -11,7 +11,6 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(history())
 app.use(routes)
 
 // route
@@ -27,6 +26,6 @@ app.use((err, req, res, next) => {
   }
 })
 
-app.listen(process.env.PORT, () => {
+app.use(history()).listen(process.env.PORT, () => {
   console.log(`App is running on http://localhost:${process.env.PORT}`)
 })
