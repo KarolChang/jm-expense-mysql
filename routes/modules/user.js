@@ -55,4 +55,19 @@ router.get('/all', async (req, res, next) => {
   }
 })
 
+// get one
+router.get('/:email', async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: { email: req.params.email, active: true }
+    })
+    if (!user) {
+      res.json({ status: 'error', message: "this email doesn't exist" })
+    }
+    return res.json({ status: 'success', data: user })
+  } catch (error) {
+    return next(error)
+  }
+})
+
 module.exports = router
