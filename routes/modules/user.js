@@ -70,4 +70,18 @@ router.get('/:email', async (req, res, next) => {
   }
 })
 
+// edit
+router.put('/edit/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    if (!user) {
+      return res.json({ status: 'error', message: 'user is not existed' })
+    }
+    const updatedUser = await user.update(req.body)
+    return res.json({ status: 'success', data: updatedUser })
+  } catch (error) {
+    return next(error)
+  }
+})
+
 module.exports = router
