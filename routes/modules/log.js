@@ -10,7 +10,10 @@ router.get('/all', async (req, res, next) => {
   try {
     const logs = await Log.findAll({
       order: [['createdAt', 'DESC']],
-      include: [{ model: Record, as: 'Records' }]
+      include: [
+        { model: Record, as: 'Records' },
+        { model: User, as: 'User' }
+      ]
     })
     return res.json({ status: 'success', data: logs })
   } catch (err) {

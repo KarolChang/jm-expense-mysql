@@ -24,7 +24,8 @@ router.post('/create', async (req, res, next) => {
 router.get('/all', async (req, res, next) => {
   try {
     const records = await Record.findAll({
-      order: [['date', 'DESC']]
+      order: [['date', 'DESC']],
+      include: [{ model: User, as: 'User' }]
     })
     return res.json({ status: 'success', data: records })
   } catch (err) {
@@ -60,7 +61,11 @@ router.put('/edit/:id', async (req, res, next) => {
     const { date, item, merchant, amount, UserId } = req.body
     const updatedRecord = await record.update(req.body)
     const log = await Log.create({
-      date, item, merchant, amount, UserId,
+      date,
+      item,
+      merchant,
+      amount,
+      UserId,
       action: '編輯',
       ...oldRecord,
       RecordId: req.params.id
