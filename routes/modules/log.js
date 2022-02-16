@@ -4,6 +4,7 @@ const router = express.Router()
 const db = require('../../models')
 const Log = db.Log
 const Record = db.Record
+const User = db.User
 
 // read
 router.get('/all', async (req, res, next) => {

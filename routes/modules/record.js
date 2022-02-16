@@ -5,6 +5,7 @@ const db = require('../../models')
 const Record = db.Record
 const Log = db.Log
 const LogItem = db.LogItem
+const User = db.User
 
 // create
 router.post('/create', async (req, res, next) => {
@@ -24,8 +25,8 @@ router.post('/create', async (req, res, next) => {
 router.get('/all', async (req, res, next) => {
   try {
     const records = await Record.findAll({
-      order: [['date', 'DESC']],
-      include: [{ model: User, as: 'User' }]
+      include: [{ model: User, as: 'User' }],
+      order: [['date', 'DESC']]
     })
     return res.json({ status: 'success', data: records })
   } catch (err) {
