@@ -8,11 +8,11 @@ const Category = db.Category
 router.post('/create', async (req, res, next) => {
   try {
     // req.body: name, icon, photoUrl
-    console.log('req.body', req.body)
-    const category = await Category.create(req.body)
+    const { name, icon } = req.body
+    const category = await Category.create({ name, icon })
     return res.json({ status: 'success', data: category })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -41,11 +41,12 @@ router.get('/:id', async (req, res, next) => {
 // edit
 router.put('/edit/:id', async (req, res, next) => {
   try {
+    const { name, icon } = req.body
     const category = await Category.findByPk(req.params.id)
     if (!category) {
       return res.json({ status: 'error', message: 'category is not existed' })
     }
-    const updatedCategory = await category.update(req.body)
+    const updatedCategory = await category.update({ name, icon })
     return res.json({ status: 'success', data: updatedCategory })
   } catch (error) {
     return next(error)
@@ -59,7 +60,7 @@ router.delete('/delete/:id', async (req, res, next) => {
     if (!category) {
       return res.json({ status: 'error', message: 'category is not existed' })
     }
-    const deletedCategory = await category.update({ deletedAt: new Date() })
+    const deletedCategory = await category.destroy()
     return res.json({ status: 'success', data: deletedCategory })
   } catch (error) {
     return next(error)
