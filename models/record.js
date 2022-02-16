@@ -9,7 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Record.hasMany(models.Log)
+      Record.belongsTo(models.User)
+      // 可能不會用到
+      // Record.belongsToMany(models.Log, {
+      //   through: models.LogItem,
+      //   foreignKey: 'RecordId',
+      //   as: 'Logs'
+      // })
     }
   }
   Record.init(
@@ -18,16 +24,13 @@ module.exports = (sequelize, DataTypes) => {
       item: DataTypes.STRING,
       merchant: DataTypes.STRING,
       amount: DataTypes.INTEGER,
-      recorder: {
-        type: DataTypes.ENUM,
-        values: ['建喵', '豬涵']
-      },
       isClosed: DataTypes.BOOLEAN,
-      deletedAt: DataTypes.DATE
+      deletedAt: DataTypes.DATE,
     },
     {
       sequelize,
-      modelName: 'Record'
+      modelName: 'Record',
+      paranoid: true,
     }
   )
   return Record

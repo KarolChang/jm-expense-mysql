@@ -4,16 +4,17 @@ const router = express.Router()
 const db = require('../../models')
 const Record = db.Record
 const Log = db.Log
+const LogItem = db.LogItem
 
 // close
 router.put('/', async (req, res, next) => {
   try {
-    // req.body: records
-    const records = req.body.records.split(',')
+    const { records, totalAmount, UserId } = req.body
+    const recordsArr = records.split(',')
     const recordsNotFound = []
     const recordsClosedBefore = []
     const recordsClosedNow = []
-    for (let recordId of records) {
+    for (let recordId of recordsArr) {
       const record = await Record.findByPk(Number(recordId))
       if (!record) {
         recordsNotFound.push(Number(recordId))
@@ -25,16 +26,19 @@ router.put('/', async (req, res, next) => {
       }
     }
     if (recordsClosedNow.length) {
-      await Log.create({
-        recorder: req.body.recorder,
+      const log = await Log.create({
+        UserId,
         action: '結算',
-        closeAmount: req.body.totalAmount,
-        RecordIds: req.body.records
+        closeAmount: totalAmount,
+        RecordIds: recordsClosedNow.join(',')
       })
+      for(let recordId of recordsClosedNow) {
+        await LogItem.create({ RecordId: recordId, LogId: log.id })
+      }
     }
     return res.json({ status: 'success', data: { recordsClosedNow, recordsNotFound, recordsClosedBefore } })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 

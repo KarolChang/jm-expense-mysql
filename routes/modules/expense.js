@@ -9,16 +9,16 @@ const User = db.User
 // create
 router.post('/create', async (req, res, next) => {
   try {
-    // req.body: date, item, amount, note, CategoryId
     console.log('req.body', req.body)
+    const { date, item, amount, note, CategoryId, UserId } = req.body
     const category = await Category.findByPk(req.body.CategoryId)
     if (!category) {
       return res.json({ status: 'error', message: 'category is not existed' })
     }
-    const expense = await Expense.create(req.body)
+    const expense = await Expense.create({ date, item, amount, note, CategoryId, UserId })
     return res.json({ status: 'success', data: expense })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -34,8 +34,8 @@ router.get('/all', async (req, res, next) => {
       order: [['date', 'DESC']]
     })
     return res.json({ status: 'success', data: expenses })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -46,22 +46,23 @@ router.get('/:id', async (req, res, next) => {
       return res.json({ status: 'error', message: 'expense is not existed' })
     }
     return res.json({ status: 'success', data: expense })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
 // edit
 router.put('/edit/:id', async (req, res, next) => {
   try {
+    const { date, item, amount, note, CategoryId, UserId } = req.body
     const expense = await Expense.findByPk(req.params.id)
     if (!expense) {
       return res.json({ status: 'error', message: 'expense is not existed' })
     }
-    const updatedExpense = await expense.update(req.body)
+    const updatedExpense = await expense.update({ date, item, amount, note, CategoryId, UserId })
     return res.json({ status: 'success', data: updatedExpense })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -72,10 +73,10 @@ router.delete('/delete/:id', async (req, res, next) => {
     if (!expense) {
       return res.json({ status: 'error', message: 'expense is not existed' })
     }
-    const deletedExpense = await expense.update({ deletedAt: new Date() })
+    const deletedExpense = await expense.destroy()
     return res.json({ status: 'success', data: deletedExpense })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 

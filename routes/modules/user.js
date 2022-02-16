@@ -7,7 +7,6 @@ const User = db.User
 // register
 router.post('/register', async (req, res, next) => {
   try {
-    // req.body: email password displayName photoURL
     const { email, password, displayName, photoURL } = req.body
     // firebase 創建用戶
     const firebaseUser = await adminApp.auth().createUser({
@@ -20,8 +19,8 @@ router.post('/register', async (req, res, next) => {
     })
     console.log('firebaseUser', firebaseUser)
     return res.json({ message: 'success', data: firebaseUser })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -38,8 +37,8 @@ router.post('/create', async (req, res, next) => {
       active: true
     })
     return res.json({ message: 'success', data: user })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -50,8 +49,8 @@ router.get('/all', async (req, res, next) => {
       where: { active: true }
     })
     return res.json({ status: 'success', data: users })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -65,8 +64,8 @@ router.get('/:email', async (req, res, next) => {
       res.json({ status: 'error', message: "this email doesn't exist" })
     }
     return res.json({ status: 'success', data: user })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -79,8 +78,29 @@ router.put('/edit/:id', async (req, res, next) => {
     }
     const updatedUser = await user.update(req.body)
     return res.json({ status: 'success', data: updatedUser })
-  } catch (error) {
-    return next(error)
+  } catch (err) {
+    return next(err)
+  }
+})
+
+// 停用 deactive
+router.post('/deactive/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    if (!user) {
+      return res.json({ status: 'error', message: 'user is not existed' })
+    }
+    if (!user.active) {
+      return res.json({ status: 'error', message: 'user has been deactived' })
+    }
+    // firebase 停用帳號
+    await adminApp.auth().updateUser(user.firebaseUid, {
+      disabled: true
+    })
+    const updatedUser = await user.update({ active: false })
+    return res.json({ status: 'success', data: updatedUser })
+  } catch (err) {
+    return next(err)
   }
 })
 

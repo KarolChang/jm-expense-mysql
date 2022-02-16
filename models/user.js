@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Record)
       User.hasMany(models.Expense)
     }
   }
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       displayName: DataTypes.STRING,
       photoURL: DataTypes.STRING,
       firebaseUid: DataTypes.STRING,
-      active: DataTypes.BOOLEAN
+      active: DataTypes.BOOLEAN,
     },
     {
       sequelize,

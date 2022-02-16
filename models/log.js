@@ -10,14 +10,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Log.belongsTo(models.Record)
+      Log.belongsTo(models.User)
+      Log.belongsToMany(models.Record, {
+        through: models.LogItem,
+        foreignKey: 'LogId',
+        as: 'Records'
+      })
     }
   }
   Log.init(
     {
-      recorder: {
-        type: DataTypes.ENUM,
-        values: ['建喵', '豬涵']
-      },
       action: {
         type: DataTypes.ENUM,
         values: ['新增', '編輯', '結算']
@@ -32,11 +34,11 @@ module.exports = (sequelize, DataTypes) => {
       dateBefore: DataTypes.DATE,
       closeAmount: DataTypes.INTEGER,
       RecordId: DataTypes.INTEGER,
-      RecordIds: DataTypes.STRING
+      RecordIds: DataTypes.STRING,
     },
     {
       sequelize,
-      modelName: 'Log'
+      modelName: 'Log',
     }
   )
   return Log
