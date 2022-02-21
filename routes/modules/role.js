@@ -21,8 +21,7 @@ router.post('/create', async (req, res, next) => {
 router.get('/all', async (req, res, next) => {
   try {
     const roles = await Role.findAll({
-      include: [{ model: Permission, as: 'Permissions' }],
-      order: [['date', 'DESC']]
+      include: [{ model: Permission, as: 'Permissions' }]
     })
     return res.json({ status: 'success', data: roles })
   } catch (err) {
