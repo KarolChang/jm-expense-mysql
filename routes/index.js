@@ -7,6 +7,9 @@ const log = require('./modules/log')
 const expense = require('./modules/expense')
 const category = require('./modules/category')
 const user = require('./modules/user')
+const role = require('./modules/role')
+const permission = require('./modules/permission')
+const access = require('./modules/access')
 
 router.use('/record', record)
 router.use('/close', close)
@@ -14,5 +17,8 @@ router.use('/log', log)
 router.use('/expense', expense)
 router.use('/category', category)
 router.use('/user', user)
+router.use('/role', role)
+router.use('/permission', permission)
+router.use('/access', access)
 
 module.exports = router

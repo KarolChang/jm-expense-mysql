@@ -26,11 +26,12 @@ module.exports = (sequelize, DataTypes) => {
       amount: DataTypes.INTEGER,
       isClosed: DataTypes.BOOLEAN,
       deletedAt: DataTypes.DATE,
+      UserId: DataTypes.INTEGER
     },
     {
       sequelize,
       modelName: 'Record',
-      paranoid: true,
+      paranoid: true
     }
   )
   return Record

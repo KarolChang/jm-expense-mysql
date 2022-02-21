@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Record)
       User.hasMany(models.Log)
       User.hasMany(models.Expense)
+      User.belongsTo(models.Role)
     }
   }
   User.init(
