@@ -49,7 +49,7 @@ router.put('/edit/:id', async (req, res, next) => {
     if (!role) {
       return res.json({ status: 'error', message: 'role is not existed' })
     }
-    const updatedRole = await role.update({ name, name_en, permissions })
+    const updatedRole = await role.update({ name, name_en })
     return res.json({ status: 'success', data: updatedRole })
   } catch (err) {
     return next(err)
