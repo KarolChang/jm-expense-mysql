@@ -8,8 +8,8 @@ const Category = db.Category
 router.post('/create', async (req, res, next) => {
   try {
     // req.body: name, icon, photoUrl
-    const { name, icon } = req.body
-    const category = await Category.create({ name, icon })
+    const { name, icon, type } = req.body
+    const category = await Category.create({ name, icon, type })
     return res.json({ status: 'success', data: category })
   } catch (err) {
     return next(err)
@@ -41,12 +41,12 @@ router.get('/:id', async (req, res, next) => {
 // edit
 router.put('/edit/:id', async (req, res, next) => {
   try {
-    const { name, icon } = req.body
+    const { name, icon, type } = req.body
     const category = await Category.findByPk(req.params.id)
     if (!category) {
       return res.json({ status: 'error', message: 'category is not existed' })
     }
-    const updatedCategory = await category.update({ name, icon })
+    const updatedCategory = await category.update({ name, icon, type })
     return res.json({ status: 'success', data: updatedCategory })
   } catch (error) {
     return next(error)
