@@ -1,1 +1,1 @@
-web: NODE_ENV=production node app.js
+web: NODE_ENV=production node --max-old-space-size=4096 app.js
