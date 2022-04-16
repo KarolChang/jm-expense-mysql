@@ -59,8 +59,8 @@ router.get('/all', async (req, res, next) => {
 router.get('/:email', async (req, res, next) => {
   try {
     const user = await User.findOne({
-      where: { email: req.params.email, active: true },
-      include: { all: true }
+      where: { email: req.params.email, active: true }
+      // include: { all: true }
     })
     if (!user) {
       res.json({ status: 'error', message: "this email doesn't exist" })
