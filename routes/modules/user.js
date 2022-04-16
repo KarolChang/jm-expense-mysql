@@ -3,6 +3,7 @@ const router = express.Router()
 const adminApp = require('../../config/firebase')
 const db = require('../../models')
 const User = db.User
+const Role = db.Role
 
 // register
 router.post('/register', async (req, res, next) => {
@@ -60,7 +61,7 @@ router.get('/:email', async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: { email: req.params.email, active: true },
-      include: [Role]
+      include: [{ model: Role, as: 'Role' }]
       // include: { all: true }
     })
     if (!user) {
