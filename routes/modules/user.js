@@ -110,7 +110,7 @@ router.post('/deactive/:id', async (req, res, next) => {
 
 // binding lineUserId
 router.put('/binding', async (req, res, next) => bindingLineUserId(req.body))
-export const bindingLineUserId = async (data) => {
+const bindingLineUserId = async (data) => {
   try {
     console.log('bindingLineUserId')
     const { email, lineUserId } = data
@@ -129,4 +129,4 @@ export const bindingLineUserId = async (data) => {
 }
 
 module.exports = router
-// module.exports = { bindingLineUserId }
+module.exports = { bindingLineUserId }
