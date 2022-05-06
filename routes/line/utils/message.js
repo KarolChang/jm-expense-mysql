@@ -1,4 +1,4 @@
-const { bindingLineUserId } = require('../modules/user')
+const { bindingLineUserId } = require('./user')
 
 const handleMsg = {
   reply: (client, event) => {

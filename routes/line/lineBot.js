@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const lineBot = require('@line/bot-sdk')
 const Client = lineBot.Client
-const handleMsg = require('./utils')
+const handleMsg = require('./utils/message')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
