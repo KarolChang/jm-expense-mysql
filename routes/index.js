@@ -10,6 +10,7 @@ const user = require('./modules/user')
 const role = require('./modules/role')
 const permission = require('./modules/permission')
 const access = require('./modules/access')
+const lineBot = require('./line/lineBot')
 
 router.use('/record', record)
 router.use('/close', close)
@@ -20,5 +21,6 @@ router.use('/user', user)
 router.use('/role', role)
 router.use('/permission', permission)
 router.use('/access', access)
+router.use('/callback', lineBot)
 
 module.exports = router

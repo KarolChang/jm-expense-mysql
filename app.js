@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 app.use((err, req, res, next) => {
   if (err) {
     res.status(500).json({ status: 'error', message: String(err) })
-    return next()
+    return next(err)
   }
 })
 
