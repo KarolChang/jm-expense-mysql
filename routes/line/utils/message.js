@@ -1,4 +1,4 @@
-import { Base64 } from 'js-base64'
+const { Base64 } = require('js-base64')
 const { bindingLineUserId } = require('./user')
 
 const handleMsg = {
