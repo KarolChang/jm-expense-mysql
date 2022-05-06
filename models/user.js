@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       displayName: DataTypes.STRING,
       photoURL: DataTypes.STRING,
       firebaseUid: DataTypes.STRING,
-      active: DataTypes.BOOLEAN
+      active: DataTypes.BOOLEAN,
+      lineUserId: DataTypes.STRING
     },
     {
       sequelize,

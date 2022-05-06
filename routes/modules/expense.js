@@ -30,7 +30,6 @@ router.get('/all', async (req, res, next) => {
         { model: Category, as: 'Category' },
         { model: User, as: 'User' }
       ],
-      // include: [{ all: true }],
       order: [['date', 'DESC']]
     })
     return res.json({ status: 'success', data: expenses })
