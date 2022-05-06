@@ -14,7 +14,7 @@ const config = {
 }
 const client = new Client(config)
 
-router.post('/', middleware(config), async (req, res) => {
+router.post('/', async (req, res) => {
   console.log('req.body.events!!!', req.body.events)
   const event = req.body.events[0]
   try {

@@ -2,12 +2,20 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const history = require('connect-history-api-fallback')
+const lineBot = require('@line/bot-sdk')
 const routes = require('./routes')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
 const app = express()
+app.use(
+  '/callback',
+  lineBot.middleware({
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+    channelSecret: process.env.CHANNEL_SECRET
+  })
+)
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
