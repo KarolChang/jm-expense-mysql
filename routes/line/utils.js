@@ -1,3 +1,5 @@
+const { bindingLineUserId } = require('../modules/user')
+
 const handleMsg = {
   reply: (client, event) => {
     if (event.type !== 'message' || event.message.type !== 'text') {
@@ -61,7 +63,7 @@ const handleMsg = {
               height: 'sm',
               action: {
                 type: 'uri',
-                label: '前往ERP',
+                label: '前往JM-Expense',
                 uri: `https://jm-expense-2022.firebaseapp.com/link?linkToken=${linkToken}`
               }
             }
@@ -85,7 +87,7 @@ const handleMsg = {
     // 修改 lineUserId
     const email = Base64.decode(event.link.nonce)
     const lineUserId = event.source.userId
-    await UserAPI.bindingLineUserId(email, lineUserId)
+    await bindingLineUserId({ email, lineUserId })
     // 傳送訊息
     const echo = {
       type: 'flex',

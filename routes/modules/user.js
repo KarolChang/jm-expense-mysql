@@ -109,9 +109,11 @@ router.post('/deactive/:id', async (req, res, next) => {
 })
 
 // binding lineUserId
-router.put('/binding', async (req, res, next) => {
+router.put('/binding', async (req, res, next) => bindingLineUserId(req.body))
+export const bindingLineUserId = async (data) => {
   try {
-    const { email, lineUserId } = req.body
+    console.log('bindingLineUserId')
+    const { email, lineUserId } = data
     if (!lineUserId) {
       return res.json({ status: 'error', message: '[參數未傳入] lineUserId' })
     }
@@ -124,6 +126,7 @@ router.put('/binding', async (req, res, next) => {
   } catch (err) {
     return next(err)
   }
-})
+}
 
 module.exports = router
+// module.exports = { bindingLineUserId }
