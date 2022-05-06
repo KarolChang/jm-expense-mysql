@@ -10,7 +10,7 @@ const handleMsg = {
     client.replyMessage(event.replyToken, echo)
   },
   link: async (client, event) => {
-    if (event.type !== 'message' || event.message.type !== 'text' || event.message.text !== 'line') {
+    if (event.type !== 'message' || event.message.type !== 'text' || !event.message.text.includes('連動')) {
       return Promise.resolve(null)
     }
     const linkToken = await client.getLinkToken(event.source.userId)
@@ -119,7 +119,7 @@ const handleMsg = {
               contents: [
                 {
                   type: 'text',
-                  text: '你現在可以透過LINE\n來接收JM-Expense的通知訊息了！',
+                  text: '你現在可以透過LINE來接收\nJM-Expense的通知訊息了！',
                   size: 'sm',
                   color: '#0514f0',
                   margin: 'md',

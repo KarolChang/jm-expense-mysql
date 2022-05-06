@@ -12,7 +12,7 @@ const bindingLineUserId = async (data) => {
     if (!user) {
       return res.json({ status: 'error', message: 'user is not existed or not active' })
     }
-    const updatedUser = await user.update(req.body)
+    const updatedUser = await user.update(data)
     return res.json({ status: 'success', data: updatedUser })
   } catch (err) {
     console.log('[ERROR]', err)
