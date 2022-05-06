@@ -15,7 +15,7 @@ const bindingLineUserId = async (data) => {
     const updatedUser = await user.update(req.body)
     return res.json({ status: 'success', data: updatedUser })
   } catch (err) {
-    return next(err)
+    console.log('[ERROR]', err)
   }
 }
 
