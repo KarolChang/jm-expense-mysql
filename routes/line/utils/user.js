@@ -3,20 +3,31 @@ const User = db.User
 
 const bindingLineUserId = async (data) => {
   try {
-    console.log('bindingLineUserId')
     const { email, lineUserId } = data
-    if (!lineUserId) {
-      return res.json({ status: 'error', message: '[參數未傳入] lineUserId' })
+    if (!lineUserId || !email) {
+      throw new Error('[參數 email 或 lineUserId 未傳入]')
     }
     const user = await User.findOne({ where: { email, active: true } })
     if (!user) {
-      return res.json({ status: 'error', message: 'user is not existed or not active' })
+      throw new Error('[使用者不存在或沒有被啟用]')
     }
-    const updatedUser = await user.update(data)
-    return res.json({ status: 'success', data: updatedUser })
+    await user.update(data)
   } catch (err) {
-    console.log('[ERROR]', err)
+    throw new Error('[ERROR]', err)
   }
 }
 
-module.exports = { bindingLineUserId }
+const unlinkedLineUserId = async (data) => {
+  try {
+    const { lineUserId } = data
+    const user = await User.findOne({ where: { lineUserId, active: true } })
+    if (!user) {
+      throw new Error('[使用者不存在或沒有被啟用]')
+    }
+    await user.update({ lineUserId: null })
+  } catch (err) {
+    throw new Error('[ERROR]', err)
+  }
+}
+
+module.exports = { bindingLineUserId, unlinkedLineUserId }

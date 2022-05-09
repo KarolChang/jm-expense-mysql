@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
   try {
     await handleMsg.link(client, event)
     await handleMsg.linked(client, event)
+    await handleMsg.unlinked(client, event)
   } catch (err) {
     console.log('[ERROR ROUTE]', err)
     res.status(500).end()
