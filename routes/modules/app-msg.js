@@ -14,14 +14,10 @@ router.post('/send', async (req, res, next) => {
           'key=AAAAUW3I2V0:APA91bGfqcjgi5h8M7oYLWW9rKTpLKCML9uAb1uhXTfAQaREPva-nM-NszxgNDrMCFr3PHeAD2Kik4jQ-zC7FnKWrsi77ycd2q_DQ3Ce2T5Xrlmughfh1lmdqoCUNU20d2klopjglXSy'
       },
       data: {
-        to,
+        to: '/topics/jmka',
         notification: {
           title: '卡羅記帳',
           body: msg
-        },
-        data: {
-          data_title: 'DispatchCallback',
-          data_content: 'GetOtherUserProfile=100000144'
         }
       }
     })
