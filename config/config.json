@@ -8,7 +8,12 @@
     "timezone": "+08:00"
   },
   "production": {
-    "use_env_variable": "JAWSDB_URL",
+    "username": "root",
+    "password": "U1OdYbiYvDirWYotCgG0",
+    "database": "railway",
+    "host": "containers-us-west-19.railway.app",
+    "port": 7936,
+    "dialect": "mysql",
     "timezone": "+08:00"
   }
 }

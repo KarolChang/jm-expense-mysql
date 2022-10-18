@@ -5,7 +5,7 @@ const axios = require('axios')
 // create
 router.post('/send', async (req, res, next) => {
   try {
-    const { to, msg } = req.body
+    const { msg } = req.body
     axios({
       method: 'post',
       url: 'https://fcm.googleapis.com/fcm/send',
